@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lawzeem Latif</title>
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            /*background-color: black;*/
+            background-image: url("https://mocah.org/uploads/posts/4585746-unix-operating-systems-open-source-linux.png");
+            /*background-image: linear-gradient(blue, lightblue); !* Standard syntax (must be last) *!*/
+
+        }
+        .dock {
+            z-index: 1;
+            border-radius: 20px;
+            bottom: 0;
+            position: fixed;
+            margin-left: 35%;
+            width: 30%;
+            height:auto;
+            overflow: hidden;
+            background-color: #555;
+            margin-bottom: 1%;
+            opacity: 0.6;
+        }
+        .dock a {
+            z-index: 90;
+            horiz-align: center;
+            vertical-align: baseline;
+            float: left;
+            width: 20%;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            transition: all 0.3s ease;
+            color: white;
+            /*height: 80%;*/
+            /*padding: 5px;*/
+        }
+        .dock .material-icons{
+            font-weight: bold;
+            font-size: 50px;
+            width: 100%;
+            height: 100%;
+            /*bottom: 0;*/
+            margin-top: .3em;
+            margin-bottom: .3em;
+            transition: all 0.3s ease;
+        }
+        .dock .material-icons:hover{
+            z-index: 999;
+            /*-webkit-transition: all .3s ease;*/
+            /*-webkit-transform: scale(1.5);*/
+            /*-ms-transform: scale(1.5);*/
+            /*-moz-transition: all .3s ease;*/
+            /*-moz-transform: scale(1.5);*/
+            /*transition: all .3s ease;*/
+            width: 75%;
+            transform: scale(1.5);
+            border-radius: 10px;
+
+            background-color: lightgrey;
+        }
+
+        .dock a:focus{
+            margin-bottom: 0;
+            border-bottom: 1px solid white;
+            /*border-radius: 10px;*/
+            /*color: blue;*/
+        }
+        .desktop{
+        }
+        .bg .material-icons{
+            font-size: 70px;
+        }
+        #file {
+            position: absolute;
+            z-index: 9;
+            margin: 0 0 0 0;
+            /*If Enlarged*/
+            /*height: 100%;*/
+            /*width: 100%;*/
+            background-color: #f1f1f1;
+            text-align: center;
+            border: 1px solid #d3d3d3;
+            visibility: hidden;
+        }
+        .window {
+            border: 3px solid #f1f1f1;
+            border-radius: 10px;
+
+        }
+        .content {
+            padding: 10px;
+            padding-top: 0;
+        }
+        .ico{
+            border: none;
+            font-size: 50px;
+            background-color: transparent;
+            outline: none;
+
+        }
+        #project_folder{
+            color:saddlebrown;
+        }
+        #resume{
+            color:white;
+        }
+
+        .file_name{
+            top:100%;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 18px;
+            text-align: center;
+            display: block;
+            color:white;
+        }
+        .row{
+            margin: 0 0 0 0;
+            background-color: #555555;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        #resume_window{
+            position: absolute;
+            z-index: 9;
+            margin: 0 0 0 0;
+            height: auto;
+            width: auto;
+            /*If Enlarged*/
+            /*height: 100%;*/
+            /*width: 100%;*/
+            background-color: #f1f1f1;
+            text-align: center;
+            border: 1px solid #d3d3d3;
+            visibility: hidden;
+        }
+
+        #context{
+            display:none;
+            position:fixed;
+            border:1px solid #B2B2B2;
+            width:150px;
+            background:#F9F9F9;
+            /*box-shadow: 3px 3px 2px #E9E9E9;*/
+            border-radius:4px;
+        }
+        #context li{
+            padding: 3px;
+            padding-left: 10px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="desktop">
+    <!--Folders/File Windows-->
+            <div class="window" id="file">
+                <div class="row">
+                    <div class="col l11" style="height: 100%">
+                            File
+                    </div>
+                    <div class="col l1" style="height: 100%">
+                        <button type="button" id="hide_folder" onclick="hide(this)" style="border-radius: 50%; height: inherit"><i class="material-icons" style="font-size: 2px">close</i></button>
+                    </div>
+                </div>
+                <div class="content">
+                    <button class="ico" type="button"><i class="material-icons">folder</i><span class="file_name">File</span></button>
+
+                </div>
+            </div>
+<!--Resume-->
+            <div class="window" id="resume_window">
+                <div class="row">
+                    <div class="col l11" style="height: 100%">
+                            File
+                    </div>
+                    <div class="col l1" style="height: 100%">
+                        <button type="button" id = "hide_resume" onclick="hide(this)" style="border-radius: 50%; height: inherit"><i class="material-icons" style="font-size: 2px">close</i></button>
+                    </div>
+                </div>
+                <div class="content">
+                   <div>
+                        <object data="Resume_Lawzeem_Latif.pdf" type="application/pdf" width="400" height="600">
+                            alt : <a href="Resume_Lawzeem_Latif.pdf">test.pdf</a>
+                        </object>
+                    </div>
+                </div>
+            </div>
+
+
+
+    <!--Icons in the Desktop-->
+            <div class="bg">
+                <button class="ico" id="project_folder" onclick="show(this)" type="button" ><i class="material-icons">folder</i><span class="file_name">File</span></button>
+            </div>
+
+            <div class="bg">
+                <button class="ico" id="resume" onclick="show(this)" type="button"><i class="material-icons">insert_drive_file</i><span class="file_name">Resume</span></button>
+            </div>
+
+    <!--This is the Dock at the bottom-->
+            <div class="dock">
+                <a href="#" title="All Apps"><i class="material-icons">apps</i></a>
+                <a href="#" title="Contact Me"><i class="material-icons">mail</i></a>
+                <a href="#" title="Search"><i class="material-icons">search</i></a>
+                <a href="#" title="Settings"><i class="material-icons">settings_applications</i></a>
+                <a href="#" title="About Me"><i class="material-icons">info_outline</i></a>
+            </div>
+        </div>
+
+    <div id='context'>
+        <ul id='items'>
+            <li>Settings</li>
+            <li>Info</li>
+            <!--<li>Pe</li>-->
+        </ul>
+    </div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+<!--Hide and Show Windows-->
+<script>
+
+    function show(elem){
+        if(elem.id == "project_folder"){
+            document.getElementById("file").style.visibility = "visible";
+        }
+        else if(elem.id == "resume"){
+            document.getElementById("resume_window").style.visibility = "visible";
+        }
+    }
+    // Hide/Close Window
+    function hide(elem) {
+        if(elem.id == "hide_folder"){
+            document.getElementById("file").style.visibility = "hidden";
+        }
+        else if(elem.id == "hide_resume"){
+            document.getElementById("resume_window").style.visibility = "hidden";
+        }
+    }
+
+<!--Make the DIV element draggagle:-->
+
+  $( function() {
+    $( "#file" ).draggable();
+  } );
+
+  $( function() {
+    $( "#resume_window" ).draggable();
+  } );
+
+
+
+  $(document).bind("contextmenu",function(e){
+      e.preventDefault();
+      console.log(e.pageX + "," + e.pageY);
+      $("#context").css("left",e.pageX);
+      $("#context").css("top",e.pageY);
+ // $("#cntnr").hide(100);
+      $("#context").fadeIn(200,startFocusOut());
+  });
+
+    function startFocusOut(){
+        $(document).on("click",function(){
+        $("#context").hide();
+        $(document).off("click");
+        });
+    }
+
+</script>
+<!--custom right click-->
+<!--https://jsfiddle.net/softvar/6ny94/-->
+
+</html>
